@@ -14,5 +14,6 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar;
+- (BOOL) isURLReachable:(NSURL *) remoteURL;
 
 @end

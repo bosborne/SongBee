@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 
-@interface SearchController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate> {
+@interface SearchController : UIViewController 
+<UIPickerViewDataSource, UIPickerViewDelegate,UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate> {
 	IBOutlet UIPickerView *pickerView;
 	NSMutableArray *webSites;
 	IBOutlet UISearchBar *searchBar;

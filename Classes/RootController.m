@@ -33,7 +33,7 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
-	self.title = @"Songs";
+	self.title = @"SongBee";
 	SongBeeDelegate *delegate = (SongBeeDelegate *)[[UIApplication sharedApplication] delegate]; 
 	songs = delegate.songs;
 }
