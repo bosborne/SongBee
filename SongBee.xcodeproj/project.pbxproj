@@ -32,6 +32,7 @@
 		CF5350ED12CEB96600F2B1A9 /* SearchDelegate.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF5350EB12CEB96600F2B1A9 /* SearchDelegate.xib */; };
 		CF53511612CEEAEC00F2B1A9 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF53511412CEEAEC00F2B1A9 /* AboutController.m */; };
 		CF53511712CEEAEC00F2B1A9 /* AboutController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF53511512CEEAEC00F2B1A9 /* AboutController.xib */; };
+		CF5A39E012D130E10053883E /* SongBee-about.png in Resources */ = {isa = PBXBuildFile; fileRef = CF5A39DF12D130E10053883E /* SongBee-about.png */; };
 		CFCDE53212CCFA2500CAEE7E /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = CFCDE53112CCFA2500CAEE7E /* Song.m */; };
 		CFCDE54F12CD1C0900CAEE7E /* SongController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFCDE54D12CD1C0900CAEE7E /* SongController.m */; };
 		CFCDE55012CD1C0900CAEE7E /* SongController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFCDE54E12CD1C0900CAEE7E /* SongController.xib */; };
@@ -76,6 +77,7 @@
 		CF53511312CEEAEC00F2B1A9 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		CF53511412CEEAEC00F2B1A9 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		CF53511512CEEAEC00F2B1A9 /* AboutController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AboutController.xib; path = Classes/AboutController.xib; sourceTree = "<group>"; };
+		CF5A39DF12D130E10053883E /* SongBee-about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SongBee-about.png"; sourceTree = "<group>"; };
 		CFCDE53012CCFA2500CAEE7E /* Song.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Song.h; sourceTree = "<group>"; };
 		CFCDE53112CCFA2500CAEE7E /* Song.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Song.m; sourceTree = "<group>"; };
 		CFCDE54C12CD1C0900CAEE7E /* SongController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongController.h; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CF5A39DF12D130E10053883E /* SongBee-about.png */,
 				CF36DDB812D0ED3A00E4FFF3 /* blue-notes.png */,
 				CF36DDB112D0EC3700E4FFF3 /* SongBeeNote-57x57.png */,
 				CFE59D4D12D0424100ECBB78 /* SongBee-57x57.png */,
@@ -265,6 +268,7 @@
 				CFE59D4E12D0424100ECBB78 /* SongBee-57x57.png in Resources */,
 				CF36DDB212D0EC3700E4FFF3 /* SongBeeNote-57x57.png in Resources */,
 				CF36DDB912D0ED3A00E4FFF3 /* blue-notes.png in Resources */,
+				CF5A39E012D130E10053883E /* SongBee-about.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

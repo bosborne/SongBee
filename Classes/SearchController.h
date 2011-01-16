@@ -14,6 +14,7 @@
 	IBOutlet UIPickerView *pickerView;
 	NSMutableArray *webSites;
 	IBOutlet UISearchBar *searchBar;
+	// NSMutableArray* _data;
 }
 
 @property (nonatomic, retain) IBOutlet UIPickerView *pickerView;

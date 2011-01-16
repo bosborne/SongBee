@@ -42,7 +42,7 @@
 	return [webSites objectAtIndex:row];
 }
 
-// Added
+/* added from example
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView {
 	// Return the number of sections.
 	return 1;
@@ -68,7 +68,24 @@
 	cell.textLabel.text = [NSString stringWithFormat:@"Row %d", indexPath.row];
 	return cell;
 }
-// Added
+
+- (void)mockSearch:(NSTimer*)timer
+{
+	[_data removeAllObjects];
+	int count = 1 + random() % 20;
+	for (int i = 0; i < count; i++) {
+		[_data addObject:timer.userInfo];
+	}
+	[self.searchDisplayController.searchResultsTableView reloadData];
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+	[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(mockSearch:) userInfo:searchString repeats:NO];
+	return NO;
+}
+
+added from example */
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
