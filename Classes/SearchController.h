@@ -14,10 +14,18 @@
 	IBOutlet UIPickerView *pickerView;
 	NSMutableArray *webSites;
 	IBOutlet UISearchBar *searchBar;
-	// NSMutableArray* _data;
+	NSMutableArray* searchResults;
+	NSString *selectedSite;
 }
+
+-(NSString *)searchByURL:(NSString *) searchString;
+-(NSString *)searchChordie: (NSString *) searchString;
+-(NSString *)searchGuitartabs: (NSString *) searchString;
+-(NSString *)searchUltimateguitar: (NSString *) searchString;
+-(NSString *)searchYourchords: (NSString *) searchString;
 
 @property (nonatomic, retain) IBOutlet UIPickerView *pickerView;
 @property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
 
 @end
+

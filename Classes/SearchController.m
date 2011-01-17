@@ -7,6 +7,7 @@
 //
 
 #import "SearchController.h"
+#import "SearchDelegate.h"
 
 @implementation SearchController
 
@@ -17,15 +18,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+	// default is chordie.com
+	selectedSite = @"chordie.com";
+	
 	// populate the picker view
 	webSites = [[NSMutableArray alloc] init];
 	[webSites addObject:@"chordie.com"];
 	[webSites addObject:@"ultimate-guitar.com"];
 	[webSites addObject:@"guitaretabs.com"];
 	[webSites addObject:@"yourchords.com"];
-	
-	// Does not work in this context but this method can resize any UIView object
-	// pickerView.transform = CGAffineTransformMakeScale(0.5, 0.5);
 }
 
 #pragma mark UIPickerView Methods
@@ -40,6 +41,143 @@
 
 - (NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
 	return [webSites objectAtIndex:row];
+}
+
+- (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+	selectedSite = [webSites objectAtIndex:row];
+	NSLog(@"Selected site: %@", selectedSite);
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView {
+	// Return the number of sections.
+	return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
+	//return [_data count]; 
+	return 10; // works
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	static NSString *CellIdentifier = @"CellIdentifier";
+	
+	// Dequeue or create a cell of the appropriate type.
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil) {
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		cell.accessoryType = UITableViewCellAccessoryNone;
+	}
+	
+	// Configure the cell.
+	cell.textLabel.text = [NSString stringWithFormat:@"Row %d", indexPath.row];
+	// 	cell.textLabel.text = [NSString stringWithFormat:@"Row %d: %@", indexPath.row, [_data objectAtIndex:indexPath.row]];
+	return cell;
+} 
+
+- (void) searchBarSearchButtonClicked:(UISearchBar*) searchBar {
+    NSString *searchText = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	
+	if ([selectedSite isEqualToString:@"chordie.com"]) {
+		NSLog(@"here in chordie: %@", selectedSite);
+		NSString *resp = [self searchChordie:searchText];
+	} else if ([selectedSite isEqualToString:@"guitaretabs.com"]) {
+		NSString *resp = [self searchGuitartabs:searchText];
+	} else if ([selectedSite isEqualToString:@"ultimate-guitar.com"]) {
+		NSString *resp = [self searchUltimateguitar:searchText];
+	} else if ([selectedSite isEqualToString:@"yourchords.com"]) {
+		NSString *resp = [self searchYourchords:searchText];
+	} else {
+		//[];
+	}
+}
+
+- (NSString *)searchChordie: (NSString *)searchString {
+	// http://www.chordie.com/?q=SEARCHSTRING&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0
+	
+	NSString *a = @"http://www.chordie.com/?q=";
+	NSString *c = @"&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0";
+	
+	NSString *ab = [a stringByAppendingString:searchString];
+	NSString *searchURL = [ab stringByAppendingString:c];
+	NSLog(@"url: %@", searchURL);
+	NSString *resp = [self searchByURL: searchURL];	
+	return resp;
+}
+
+- (NSString *)searchGuitartabs: (NSString *)searchString {
+	// http://www.chordie.com/?q=SEARCHSTRING&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0
+	
+	NSString *resp = [self searchByURL: searchString];
+	return resp;
+}
+
+- (NSString *)searchUltimateguitar: (NSString *)searchString {
+	// http://www.chordie.com/?q=SEARCHSTRING&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0
+	
+	NSString *resp = [self searchByURL: searchString];
+	return resp;
+}
+
+- (NSString *)searchYourchords: (NSString *)searchString {
+	// http://www.chordie.com/?q=SEARCHSTRING&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0
+		
+	NSString *resp = [self searchByURL: searchString];
+	return resp;
+}
+
+- (NSString *)searchByURL:(NSString *) searchString {
+	[searchResults removeAllObjects];
+	NSURLResponse *resp = nil;
+	NSError *err = nil;
+	
+	NSString *unescapedString = [searchString stringWithFormat:searchString];
+	NSString *escapedString =[unescapedString stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+	NSURL *theUrl = [[NSURL URLWithString:escapedString] retain]; 
+	NSURLRequest *theRequest = [NSURLRequest requestWithURL:theUrl];
+
+	NSData *theResponse = [NSURLConnection sendSynchronousRequest: theRequest returningResponse: &resp error: &err];
+	NSString *theString = [[NSString alloc] initWithData:theResponse encoding:NSUTF8StringEncoding]; 
+	
+	NSLog(@"response: %@", theString);
+	return theString;
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+	// http://www.chordie.com/?q=SEARCHSTRING&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0
+	
+	NSLog(@"input: %@", searchString);	
+	
+	NSString *unescapedString = [NSString stringWithFormat:@"http://www.chordie.com/?q=shady grove&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0"];
+	NSString *escapedString =[unescapedString stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+	
+	// When you call a method, the first thing in the brackets is the object (in this case, self) 
+	// and then the method name, and then the parameter.
+	[self searchByURL: escapedString]; // not [searchByURL: searchString]
+	
+	return YES;
+}
+
+- (void)didReceiveMemoryWarning {
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc. that aren't in use.
+}
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+- (void)dealloc {
+	[pickerView release];
+	[searchBar release];
+	[selectedSite release];
+	[searchResults release];
+	[webSites release];
+    [super dealloc];
 }
 
 /* added from example
@@ -86,23 +224,6 @@
 }
 
 added from example */
-
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc. that aren't in use.
-}
-
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (void)dealloc {
-    [super dealloc];
-}
 
 /*
  // Override to allow orientations other than the default portrait orientation.
