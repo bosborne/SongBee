@@ -94,45 +94,42 @@
 
 - (NSString *)searchChordie: (NSString *)searchString {
 	// http://www.chordie.com/?q=SEARCHSTRING&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0
+			
+	NSString *searchURL = [[NSString alloc] initWithFormat:@"http://www.chordie.com/?q=%@%@", searchString, 
+						   @"&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0"];
 	
-	NSString *a = @"http://www.chordie.com/?q=";
-	NSString *c = @"&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0";
-	
-	NSString *ab = [a stringByAppendingString:searchString];
-	NSString *searchURL = [ab stringByAppendingString:c];
-	NSLog(@"url: %@", searchURL);
+	// NSLog(@"url: %@", searchURL);
 	NSString *resp = [self searchByURL: searchURL];	
 	return resp;
 }
 
 - (NSString *)searchGuitartabs: (NSString *)searchString {
-	// http://www.chordie.com/?q=SEARCHSTRING&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0
+	//
 	
 	NSString *resp = [self searchByURL: searchString];
 	return resp;
 }
 
 - (NSString *)searchUltimateguitar: (NSString *)searchString {
-	// http://www.chordie.com/?q=SEARCHSTRING&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0
+	// 
 	
 	NSString *resp = [self searchByURL: searchString];
 	return resp;
 }
 
 - (NSString *)searchYourchords: (NSString *)searchString {
-	// http://www.chordie.com/?q=SEARCHSTRING&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0
+	// 
 		
 	NSString *resp = [self searchByURL: searchString];
 	return resp;
 }
 
 - (NSString *)searchByURL:(NSString *) searchString {
-	[searchResults removeAllObjects];
+	// [searchResults removeAllObjects];
 	NSURLResponse *resp = nil;
 	NSError *err = nil;
 	
-	NSString *unescapedString = [searchString stringWithFormat:searchString];
-	NSString *escapedString =[unescapedString stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+	NSString *escapedString =[searchString stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
 	NSURL *theUrl = [[NSURL URLWithString:escapedString] retain]; 
 	NSURLRequest *theRequest = [NSURLRequest requestWithURL:theUrl];
 
@@ -146,7 +143,7 @@
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
 	// http://www.chordie.com/?q=SEARCHSTRING&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0
 	
-	NSLog(@"input: %@", searchString);	
+	// NSLog(@"input: %@", searchString);	
 	
 	NSString *unescapedString = [NSString stringWithFormat:@"http://www.chordie.com/?q=shady grove&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0"];
 	NSString *escapedString =[unescapedString stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
