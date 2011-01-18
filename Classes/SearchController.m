@@ -14,7 +14,7 @@
 @synthesize pickerView;
 @synthesize searchBar;
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+// Implement viewDidLoad to do additional setup after loading the view
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
@@ -44,7 +44,7 @@
 }
 
 - (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-	selectedSite = [webSites objectAtIndex:row];
+	selectedSite = [[webSites objectAtIndex:row] retain];
 	NSLog(@"Selected site: %@", selectedSite);
 }
 
@@ -140,21 +140,6 @@
 	return theString;
 }
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-	// http://www.chordie.com/?q=SEARCHSTRING&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0
-	
-	// NSLog(@"input: %@", searchString);	
-	
-	NSString *unescapedString = [NSString stringWithFormat:@"http://www.chordie.com/?q=shady grove&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0"];
-	NSString *escapedString =[unescapedString stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-	
-	// When you call a method, the first thing in the brackets is the object (in this case, self) 
-	// and then the method name, and then the parameter.
-	[self searchByURL: escapedString]; // not [searchByURL: searchString]
-	
-	return YES;
-}
-
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
@@ -178,6 +163,22 @@
 }
 
 /* added from example
+ 
+ - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+ // http://www.chordie.com/?q=SEARCHSTRING&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0
+ 
+ // NSLog(@"input: %@", searchString);	
+ 
+ NSString *unescapedString = [NSString stringWithFormat:@"http://www.chordie.com/?q=shady grove&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0"];
+ NSString *escapedString =[unescapedString stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+ 
+ // When you call a method, the first thing in the brackets is the object (in this case, self) 
+ // and then the method name, and then the parameter.
+ [self searchByURL: escapedString]; // not [searchByURL: searchString]
+ 
+ return YES;
+ }
+ 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView {
 	// Return the number of sections.
 	return 1;
